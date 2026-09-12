@@ -37,8 +37,8 @@ namespace GiftOfTheGivers.Data
             modelBuilder.Entity<Volunteer>()
                         .HasOne<ApplicationUser>()
                         .WithMany()
-                        .HasForeignKey(v => v.UserId);
-            // no .IsRequired(false) here , every volunteer MUST belong to a real user
+                        .HasForeignKey(v => v.UserId)
+                        .IsRequired(false); // volunteer registration doesn't require an account
 
             modelBuilder.Entity<ReliefProjects>()
                         .HasOne<ApplicationUser>()

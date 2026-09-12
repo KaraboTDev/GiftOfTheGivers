@@ -3,7 +3,7 @@
     public class Volunteer
     {
         public int VolunteerId { get; set; }
-        public string UserId { get; set; } = string.Empty;
+        public string? UserId { get; set; } // nullable — form doesn't require login
         public string Skills { get; set; } = string.Empty;
         public string Availability { get; set; } = string.Empty;
         public string EmergencyContactName { get; set; } = string.Empty;
