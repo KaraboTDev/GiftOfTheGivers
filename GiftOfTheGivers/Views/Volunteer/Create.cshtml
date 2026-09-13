@@ -1,0 +1,63 @@
+@model GiftOfTheGivers.Models.Volunteer
+
+<h2>Volunteer Registration</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Skills"></label>
+        <input asp-for="Skills" class="form-control" />
+        <span asp-validation-for="Skills" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Availability"></label>
+        <input asp-for="Availability" class="form-control" />
+        <span asp-validation-for="Availability" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EmergencyContactName"></label>
+        <input asp-for="EmergencyContactName" class="form-control" />
+        <span asp-validation-for="EmergencyContactName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EmergencyContactPhone"></label>
+        <input asp-for="EmergencyContactPhone" class="form-control" />
+        <span asp-validation-for="EmergencyContactPhone" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MedicalConditions"></label>
+        <input asp-for="MedicalConditions" class="form-control" />
+        <span asp-validation-for="MedicalConditions" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="YearsOfExperience"></label>
+        <input asp-for="YearsOfExperience" class="form-control" />
+        <span asp-validation-for="YearsOfExperience" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MaxTravelDistance"></label>
+        <input asp-for="MaxTravelDistance" class="form-control" />
+        <span asp-validation-for="MaxTravelDistance" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LanguagesSpoken"></label>
+        <input asp-for="LanguagesSpoken" class="form-control" />
+        <span asp-validation-for="LanguagesSpoken" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

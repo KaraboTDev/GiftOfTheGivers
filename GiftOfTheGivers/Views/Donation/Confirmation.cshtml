@@ -1,0 +1,27 @@
+@model GiftOfTheGivers.Models.Donations
+
+<h2>Donation Confirmation</h2>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Thank you for your donation.</h4>
+        <p>Your donation has been recorded. Below is your placeholder tax certificate.</p>
+
+        <dl class="row">
+            <dt class="col-sm-3">Certificate #</dt>
+            <dd class="col-sm-9">@Model.TaxCertNum</dd>
+
+            <dt class="col-sm-3">Generated</dt>
+            <dd class="col-sm-9">@Model.TaxCertGenDate.ToString("yyyy-MM-dd HH:mm")</dd>
+
+            <dt class="col-sm-3">Amount</dt>
+            <dd class="col-sm-9">@Model.DonationAmount @Model.Currency</dd>
+
+            <dt class="col-sm-3">Notes</dt>
+            <dd class="col-sm-9">@Model.Notes</dd>
+        </dl>
+
+        <a asp-controller="Donation" asp-action="Create" class="btn btn-secondary">Make another donation</a>
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-link">Return home</a>
+    </div>
+</div>

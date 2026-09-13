@@ -1,0 +1,25 @@
+@model List<GiftOfTheGivers.Models.ReliefProjects>
+
+<h2>Relief Projects</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Project</th>
+            <th>Location</th>
+            <th>Disaster Type</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td>@p.ProjectName</td>
+                <td>@p.Location</td>
+                <td>@p.ProjectDisasterType</td>
+                <td>@p.Status</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,23 @@
+@model List<GiftOfTheGivers.Models.Volunteer>
+
+<h2>Volunteer Sign-Ups</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Skills</th>
+            <th>Availability</th>
+            <th>Contact</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in Model)
+        {
+            <tr>
+                <td>@v.Skills</td>
+                <td>@v.Availability</td>
+                <td>@v.EmergencyContactPhone</td>
+            </tr>
+        }
+    </tbody>
+</table>
