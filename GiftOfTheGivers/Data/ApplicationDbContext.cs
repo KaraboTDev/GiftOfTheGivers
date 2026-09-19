@@ -10,6 +10,9 @@ namespace GiftOfTheGivers.Data
         public DbSet<VolunteerAssignments> VolunteerAssignments { get; set; }
         public DbSet<Donations> Donations { get; set; }
         public DbSet<ReliefProjects> ReliefProjects { get; set; }
+        public DbSet<Skill> Skills { get; set; }
+        public DbSet<VolunteerAvailability> VolunteerAvailabilities { get; set; }
+        public DbSet<VolunteerSkill> VolunteerSkills { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -55,6 +58,33 @@ namespace GiftOfTheGivers.Data
                        .HasOne<ReliefProjects>()
                        .WithMany()
                        .HasForeignKey(va => va.ProjectId);
+
+            modelBuilder.Entity<VolunteerSkill>()
+    .HasKey(vs => new { vs.VolunteerId, vs.SkillId });
+
+            modelBuilder.Entity<VolunteerSkill>()
+                .HasOne(vs => vs.Volunteer)
+                .WithMany(v => v.VolunteerSkills)
+                .HasForeignKey(vs => vs.VolunteerId);
+
+            modelBuilder.Entity<VolunteerSkill>()
+                .HasOne(vs => vs.Skill)
+                .WithMany(s => s.VolunteerSkills)
+                .HasForeignKey(vs => vs.SkillId);
+
+            modelBuilder.Entity<VolunteerAvailability>()
+                .HasOne(a => a.Volunteer)
+                .WithMany(v => v.AvailabilityPeriods)
+                .HasForeignKey(a => a.VolunteerId);
+
+            modelBuilder.Entity<Skill>().HasData(
+                new Skill { Id = 1, Name = "First Aid" },
+                new Skill { Id = 2, Name = "Search & Rescue" },
+                new Skill { Id = 3, Name = "Medical" },
+                new Skill { Id = 4, Name = "Driving" },
+                new Skill { Id = 5, Name = "Cooking" },
+                new Skill { Id = 6, Name = "Logistics" }
+            );
 
 
         }

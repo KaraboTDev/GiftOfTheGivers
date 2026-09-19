@@ -1,4 +1,7 @@
-﻿namespace GiftOfTheGivers.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
+
+namespace GiftOfTheGivers.Models
 {
     public class Volunteer
     {
@@ -13,5 +16,12 @@
         public DateTime? LastDeployedDate { get; set; }
         public int MaxTravelDistance { get; set; }
         public string LanguagesSpoken { get; set; } = string.Empty;
+
+        // Every availability period this volunteer has added
+        public ICollection<VolunteerAvailability> AvailabilityPeriods { get; set; } = new List<VolunteerAvailability>();
+        
+        // Every skill this volunteer has selected
+        public ICollection<VolunteerSkill> VolunteerSkills { get; set; } = new List<VolunteerSkill>();
     }
 }
+
