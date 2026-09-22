@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GiftOfTheGivers.Data;
 using GiftOfTheGivers.Models;
+using System.Net.Http.Json;
 
 namespace GiftOfTheGivers.Controllers
 {
@@ -52,6 +53,46 @@ namespace GiftOfTheGivers.Controllers
             // TODO 3: set TaxCertNum to the DB-generated DonationId and save again
             donation.TaxCertNum = donation.DonationId;
             await _context.SaveChangesAsync();
+
+            // --- Azure Function call: generate a tax certificate for this donation ---
+            try
+            {
+                // Work out a display name for the certificate.
+                // If anonymous (or not logged in), just use "Anonymous Donor".
+                // Otherwise, look up the logged-in user's name.
+                string donorDisplayName = "Anonymous Donor";
+                if (!donation.IsAnonymous && User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    var currentUser = await _userManager.GetUserAsync(User);
+                    if (currentUser != null)
+                    {
+                        donorDisplayName = currentUser.UserName ?? currentUser.Email ?? "Anonymous Donor";
+                    }
+                }
+
+                using var httpClient = new HttpClient();
+                var functionPayload = new
+                {
+                    DonorName = donorDisplayName,
+                    Amount = donation.DonationAmount
+                };
+
+                var functionResponse = await httpClient.PostAsJsonAsync(
+                    "http://localhost:7124/api/GenerateTaxCertificate", // local Function URL while testing
+                    functionPayload);
+
+                if (functionResponse.IsSuccessStatusCode)
+                {
+                    var certificateJson = await functionResponse.Content.ReadAsStringAsync();
+                    TempData["TaxCertificateResult"] = certificateJson;
+                }
+            }
+            catch (Exception)
+            {
+                // If the Function isn't running locally, don't crash the donation flow -
+                // just skip the certificate generation for now.
+            }
+            // --- end Azure Function call ---
 
             // TODO 4: redirect to Confirmation action passing id
             return RedirectToAction(nameof(Confirmation), new { id = donation.DonationId });
