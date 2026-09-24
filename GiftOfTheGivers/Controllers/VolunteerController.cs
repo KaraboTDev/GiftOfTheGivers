@@ -1,10 +1,9 @@
+using GiftOfTheGivers.Data;
+using GiftOfTheGivers.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using GiftOfTheGivers.Data;
-using GiftOfTheGivers.Models;
-using System.Collections.Generic;
-using System.Linq;
+using GiftOfTheGivers.Helpers;
 
 namespace GiftOfTheGivers.Controllers
 {
@@ -71,7 +70,15 @@ namespace GiftOfTheGivers.Controllers
             _context.Volunteers.Add(volunteer);
             await _context.SaveChangesAsync();
 
-            TempData["Success"] = "Thank you for signing up as a volunteer.";
+            // use the published GiftOfTheGivers.Helpers NuGet package
+            // to summarize this volunteer's availability
+            var availabilitySummary = VolunteerHelper.SummarizeAvailability(
+                volunteer.AvailabilityPeriods.Select(a => (a.StartDate, a.EndDate)));
+
+            var totalDays = VolunteerHelper.TotalAvailableDays(
+                volunteer.AvailabilityPeriods.Select(a => (a.StartDate, a.EndDate)));
+
+            TempData["Success"] = $"Thank you for signing up as a volunteer. You're available: {availabilitySummary} ({totalDays} total days).";
             return RedirectToAction(nameof(Create));
         }
 

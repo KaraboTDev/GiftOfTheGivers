@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="GiftOfTheGivers.Functions1/GiftOfTheGivers.Functions1.csproj" Id="631db1f3-a457-4814-a076-3a5cf180142a" />
+  <Project Path="GiftOfTheGivers.Helpers/GiftOfTheGivers.Helpers.csproj" Id="9469e323-d5e6-493d-8135-88c215ba9add" />
   <Project Path="GiftOfTheGivers/GiftOfTheGivers.csproj" />
 </Solution>

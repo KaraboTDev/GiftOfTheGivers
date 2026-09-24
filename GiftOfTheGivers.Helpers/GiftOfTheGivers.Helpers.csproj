@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>GiftOfTheGivers.Helpers</PackageId>
+    <Authors>Thandi </Authors>
+    <Version>1.0.0</Version>
+    <Title>Gift of the Givers - Volunteer Helpers</Title>
+    <Description>Helper utilities for summarizing volunteer availability and skills.</Description>
+  </PropertyGroup>
+
+</Project>
